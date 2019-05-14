@@ -20,7 +20,7 @@ router.patch("/update/:email/:name", async (req, res) => {
   return res.status(HttpStatus.OK).json({ message: action.USER_UPDATED });
 });
 
-router.get("/search/:name", function(req, res) {
+router.get("/search/:name", (req, res) => {
   const { params: name } = req;
   User.search({ query_string: { query: name } }, (err, results) => {
     return res.status(HttpStatus.OK).json(results);
