@@ -7,7 +7,7 @@ router.post("/register", (req, res) => {
   User.create(req.body, (err, user) => {
     if (err) return res.status(HttpStatus.NOT_FOUND).json(err);
     return res
-      .staus(HttpStatus.OK)
+      .status(HttpStatus.OK)
       .json({ message: action.USER_CREATED, user });
   });
 });

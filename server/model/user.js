@@ -18,8 +18,8 @@ var UserSchema = new mongoose.Schema({
 });
 
 UserSchema.plugin(mongoosastic, {
-  host: "localhost",
-  port: 9200
+  host: process.env.ELASTIC_HOST,
+  port: process.env.ELASTIC_PORT
 });
 
 UserSchema.pre("save", function(next) {
