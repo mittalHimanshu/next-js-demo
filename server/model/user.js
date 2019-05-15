@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const mongoosastic = require("mongoosastic");
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     validate: {
@@ -14,7 +14,8 @@ var UserSchema = new mongoose.Schema({
     }
   },
   name: String,
-  password: String
+  password: String,
+  stories: { type: mongoose.Schema.Types.ObjectId, ref: "Story" }
 });
 
 UserSchema.plugin(mongoosastic, {
