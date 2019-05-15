@@ -17,18 +17,17 @@ router.post("/save-post/:email", async (req, res) => {
   const { email } = req.params;
   const { story } = req.body;
   const { id } = await User.findOne({ email });
-  console.log(id);
   story.author = id;
   const story_ = new Story(story);
   story_.save();
   User.updateOne(
-    { id },
+    { email },
     {
       $set: {
         stories: story_.id
       }
     }
-  ).then(user => {
+  ).exec((err, result) => {
     return res.status(HttpStatus.OK).json({ message: action.POST_SAVED });
   });
 });
@@ -50,6 +49,14 @@ router.get("/search/:name", (req, res) => {
   User.search({ query_string: { query: name } }, (err, results) => {
     return res.status(HttpStatus.OK).json(results);
   });
+});
+
+router.get("/fetch-posts", (req, res) => {
+  Story.find({})
+    .exec()
+    .then(result => {
+      return res.status(HttpStatus.OK).json(result);
+    });
 });
 
 module.exports = router;
